@@ -15,12 +15,12 @@ public:
 
     /** Returns the file descriptor of the socket. */
     int wait();
-    
-    epoll(epoll &&) noexcept = delete;
-    epoll &operator=(epoll &&) noexcept = delete;
-    const epoll &operator=(const epoll &) noexcept = delete;
-    epoll(epoll const &) noexcept = delete;
-    
+
+    epoll(epoll&&) noexcept = delete;
+    epoll& operator=(epoll&&) noexcept = delete;
+    const epoll& operator=(const epoll&) noexcept = delete;
+    epoll(epoll const&) noexcept = delete;
+
 private:
     sys_epoll_t epoll_;
 };
@@ -30,17 +30,17 @@ public:
     epoll_ptr();
     ~epoll_ptr() noexcept;
 
-    void add(int fd, void *ptr);
+    void add(int fd, void* ptr);
     void del(int fd);
 
     /** Returns pointer provided with the socket. */
-    void *wait();
-    
-    epoll_ptr(epoll_ptr &&) noexcept = delete;
-    epoll_ptr &operator=(epoll_ptr &&) noexcept = delete;
-    const epoll_ptr &operator=(const epoll_ptr &) noexcept = delete;
-    epoll_ptr(epoll_ptr const &) noexcept = delete;
-    
+    void* wait();
+
+    epoll_ptr(epoll_ptr&&) noexcept = delete;
+    epoll_ptr& operator=(epoll_ptr&&) noexcept = delete;
+    const epoll_ptr& operator=(const epoll_ptr&) noexcept = delete;
+    epoll_ptr(epoll_ptr const&) noexcept = delete;
+
 private:
     sys_epoll_t epoll_;
 };

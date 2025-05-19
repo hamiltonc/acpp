@@ -12,9 +12,9 @@ public:
     void del(int fd);
     bool readable(int fd) const;
 
-    friend void select_inplace(fdset &);
-    friend fdset select(const fdset &);
-    
+    friend void select_inplace(fdset&);
+    friend fdset select(const fdset&);
+
 private:
     sys_fdset_t fdset_;
 };

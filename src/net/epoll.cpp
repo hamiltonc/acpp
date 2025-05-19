@@ -1,7 +1,7 @@
 #include "epoll.hpp"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 namespace net {
 
@@ -52,7 +52,7 @@ epoll_ptr::~epoll_ptr() noexcept
     sys_epoll_fini(&epoll_);
 }
 
-void epoll_ptr::add(int fd, void *data)
+void epoll_ptr::add(int fd, void* data)
 {
     if (SYS_OK != sys_epoll_add_ptr(&epoll_, fd, data)) {
         throw std::runtime_error("net::epoll_ptr::add");
@@ -66,9 +66,9 @@ void epoll_ptr::del(int fd)
     }
 }
 
-void *epoll_ptr::wait()
+void* epoll_ptr::wait()
 {
-    void *data;
+    void* data;
     if (SYS_OK != sys_epoll_wait_ptr(&epoll_, &data)) {
         throw std::runtime_error("net::epoll_ptr::wait");
     }

@@ -2,7 +2,6 @@
 #include "net/socket.hpp"
 
 #include <iostream>
-#include <vector>
 
 using namespace net;
 
@@ -14,6 +13,6 @@ int main()
     socket.send("one");
     std::cout << "Receiving" << std::endl;
     socket.recv();
-        
+
     return 0;
 }

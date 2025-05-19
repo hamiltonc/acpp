@@ -4,7 +4,7 @@ clean:
 	rm bin/*
 	find src/ -name *.o
 
-CXX=clang++-3.8 -O2 -stdlib=libstdc++ --std=c++14 -Isrc
+CXX=clang++-19 -O3 --std=c++20 -Isrc -Wall -Wextra -Werror
 
 # net
 

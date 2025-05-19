@@ -7,8 +7,8 @@ namespace net {
 
 class socket;
 
-socket bind_tcp(const std::string &port);
-socket bind_local(const std::string &path);
+socket bind_tcp(const std::string& port);
+socket bind_local(const std::string& path);
 
 } /* namespace net */
 

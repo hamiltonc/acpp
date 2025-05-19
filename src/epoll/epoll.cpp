@@ -1,12 +1,11 @@
+#include "net/epoll.hpp"
 #include "common/table.hpp"
 #include "net/bind.hpp"
-#include "net/epoll.hpp"
 #include "net/socket.hpp"
 
 #include <unordered_map>
 
 using namespace net;
-using std::move;
 using std::unordered_map;
 
 int main()
@@ -25,15 +24,13 @@ int main()
         if (fd == sock.fd()) {
             auto conn = sock.accept();
             poll.add(conn.fd());
-            conns[conn.fd()] = move(conn);
-        }
-        else {
-            auto &conn = conns.at(fd);
+            conns[conn.fd()] = std::move(conn);
+        } else {
+            auto& conn = conns.at(fd);
             if (auto req = conn.recv()) {
                 auto result = t.lookup(*req);
                 conn.send(result);
-            }
-            else {
+            } else {
                 poll.del(fd);
                 conns.erase(fd);
             }

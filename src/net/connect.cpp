@@ -2,12 +2,12 @@
 #include "socket.hpp"
 #include "sys/client.h"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 namespace net {
 
-socket connect(const std::string &hostname, const std::string &port)
+socket connect(const std::string& hostname, const std::string& port)
 {
     int connect_sock(-1);
     if (SYS_OK != sys_connect(hostname.c_str(), port.c_str(), &connect_sock)) {
@@ -16,7 +16,7 @@ socket connect(const std::string &hostname, const std::string &port)
     return socket(connect_sock);
 }
 
-socket connect_local(const std::string &path)
+socket connect_local(const std::string& path)
 {
     int connect_sock(-1);
     if (SYS_OK != sys_connect_local(path.c_str(), &connect_sock)) {

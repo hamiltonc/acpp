@@ -3,26 +3,26 @@
 #include "sys/server.h"
 #include "sys/socket_message.h"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 namespace net {
 
 socket::socket()
-:	fd_(-1)
+    : fd_(-1)
 {
 }
 
 socket::socket(int fd)
-:	fd_(std::move(fd))
+    : fd_(std::move(fd))
 {
 }
 
 void socket::listen()
 {
-	if (SYS_OK != sys_listen(fd())) {
+    if (SYS_OK != sys_listen(fd())) {
         throw std::runtime_error("net::listen");
-	}
+    }
 }
 
 socket socket::accept()
@@ -43,7 +43,7 @@ void socket::send(std::experimental::string_view data)
 
 std::experimental::optional<std::string> socket::recv()
 {
-    std::uint32_t length(0);
+    uint32_t length(0);
     const auto result = sys_socket_message_recv_length(fd(), &length);
     if (SYS_EOF == result) {
         return {};
@@ -61,13 +61,13 @@ std::experimental::optional<std::string> socket::recv()
     return data;
 }
 
-socket::socket(socket &&other) noexcept
-:	socket()
+socket::socket(socket&& other) noexcept
+    : socket()
 {
     *this = std::move(other);
 }
 
-socket &socket::operator=(socket &&other) noexcept
+socket& socket::operator=(socket&& other) noexcept
 {
     std::swap(fd_, other.fd_);
     return *this;

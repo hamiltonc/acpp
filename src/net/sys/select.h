@@ -9,23 +9,21 @@
 #include <unistd.h>
 
 typedef struct sys_fdset {
-	fd_set readfds;
+    fd_set readfds;
     int maxfd;
 } sys_fdset_t;
 
-inline
-void
-sys_fdset_init(sys_fdset_t *sel)
+inline void
+sys_fdset_init(sys_fdset_t* sel)
 {
     FD_ZERO(&sel->readfds);
     sel->maxfd = 0;
 }
 
-inline
-sys_error_t
-sys_fdset_add(sys_fdset_t *sel, const int fd)
+inline sys_error_t
+sys_fdset_add(sys_fdset_t* sel, const int fd)
 {
-    if (! (fd < FD_SETSIZE)) {
+    if (!(fd < FD_SETSIZE)) {
         return SYS_FDSETSIZE;
     }
 
@@ -36,11 +34,10 @@ sys_fdset_add(sys_fdset_t *sel, const int fd)
     return SYS_OK;
 }
 
-inline
-sys_error_t
-sys_fdset_del(sys_fdset_t *sel, const int fd)
+inline sys_error_t
+sys_fdset_del(sys_fdset_t* sel, const int fd)
 {
-    if (! (fd < FD_SETSIZE)) {
+    if (!(fd < FD_SETSIZE)) {
         return SYS_FDSETSIZE;
     }
 
@@ -48,25 +45,22 @@ sys_fdset_del(sys_fdset_t *sel, const int fd)
     return SYS_OK;
 }
 
-inline
-bool
-sys_fdset_readable(const sys_fdset_t *sel, int fd)
+inline bool
+sys_fdset_readable(const sys_fdset_t* sel, int fd)
 {
     assert(fd < FD_SETSIZE);
     return FD_ISSET(fd, &sel->readfds);
 }
 
-inline
-sys_error_t
-sys_select(sys_fdset_t *sel)
+inline sys_error_t
+sys_select(sys_fdset_t* sel)
 {
     for (;;) {
         const int result = select(sel->maxfd + 1, &sel->readfds, 0, 0, 0);
         if (result == -1) {
             if (errno == EINTR) {
                 continue;
-            }
-            else {
+            } else {
                 return SYS_ESYSCALL_SELECT;
             }
         }

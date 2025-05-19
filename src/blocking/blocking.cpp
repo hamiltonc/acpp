@@ -5,16 +5,16 @@ using namespace net;
 
 int main()
 {
-  const auto t = table();
-  auto sock = bind_local("socket");
-  sock.listen();
+    const auto t = table();
+    auto sock = bind_local("socket");
+    sock.listen();
 
-  for (;;) {
-    auto conn = sock.accept();
+    for (;;) {
+        auto conn = sock.accept();
 
-    while (auto req = conn.recv()) {
-      auto result = t.lookup(*req);
-      conn.send(result);
+        while (auto req = conn.recv()) {
+            auto result = t.lookup(*req);
+            conn.send(result);
+        }
     }
-  }
 }

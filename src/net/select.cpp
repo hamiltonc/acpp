@@ -1,7 +1,7 @@
 #include "select.hpp"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 namespace net {
 
@@ -29,14 +29,14 @@ bool fdset::readable(const int fd) const
     return sys_fdset_readable(&fdset_, fd);
 }
 
-void select_inplace(fdset &fds)
+void select_inplace(fdset& fds)
 {
     if (SYS_OK != sys_select(&fds.fdset_)) {
         throw std::runtime_error("net::select");
     }
 }
 
-fdset select(const fdset &fds)
+fdset select(const fdset& fds)
 {
     auto result = fds;
     select_inplace(result);
